@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Dad</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial;
+}
+
+html{
+scroll-behavior:smooth;
+scroll-snap-type:y mandatory;
+}
+
+body{
+background:#0a0c10;
+color:white;
+overflow-x:hidden;
+}
+
+/* BACKGROUND LAYER */
+.bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 20% 20%, rgba(77,163,255,.25), transparent 40%),
+radial-gradient(circle at 80% 70%, rgba(120,80,255,.18), transparent 45%);
+z-index:-1;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:18px 40px;
+backdrop-filter: blur(14px);
+background:rgba(0,0,0,.35);
+z-index:10;
+}
+
+nav a{
+color:white;
+opacity:.6;
+text-decoration:none;
+margin-left:20px;
+}
+
+nav a:hover{opacity:1;}
+
+/* SECTIONS */
+section{
+height:100vh;
+scroll-snap-align:start;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+padding:40px;
+}
+
+/* HERO */
+.hero h1{
+font-size:90px;
+letter-spacing:-3px;
+animation:fadeUp 1s ease;
+}
+
+.hero span{
+color:#4da3ff;
+}
+
+.hero p{
+opacity:.7;
+margin-top:10px;
+font-size:18px;
+animation:fadeUp 1.2s ease;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* BUTTONS */
+button{
+margin-top:25px;
+padding:14px 34px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+font-size:16px;
+transition:.3s;
+}
+
+.primary{
+background:#4da3ff;
+color:black;
+}
+
+.primary:hover{
+transform:translateY(-4px);
+}
+
+.secondary{
+background:rgba(255,255,255,.08);
+color:white;
+}
+
+/* STORY */
+.story{
+max-width:700px;
+opacity:.8;
+font-size:20px;
+line-height:1.6;
+}
+
+/* TIMELINE */
+.timeline{
+display:flex;
+gap:20px;
+margin-top:40px;
+flex-wrap:wrap;
+justify-content:center;
+max-width:900px;
+}
+
+.item{
+width:240px;
+padding:18px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+transition:.3s;
+}
+
+.item:hover{
+transform:translateY(-10px);
+background:rgba(255,255,255,.1);
+}
+
+/* LETTER ANIMATION */
+.letter{
+max-width:600px;
+padding:30px;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+transform:scale(.9);
+opacity:.4;
+transition:1s;
+}
+
+.letter.open{
+transform:scale(1);
+opacity:1;
+}
+
+/* CONFETTI */
+.confetti{
+position:fixed;
+width:6px;
+height:6px;
+top:-10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+opacity:0;
+}
+}
+
+footer{
+position:fixed;
+bottom:10px;
+width:100%;
+text-align:center;
+opacity:.4;
+font-size:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<nav>
+<div>💙 Dad</div>
+<div>
+<a href="#hero">Home</a>
+<a href="#story">Story</a>
+<a href="#letter">Letter</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+
+<h1>For My <span>Dad</span></h1>
+
+<p>A cinematic memory, not just a website</p>
+
+<button class="primary" onclick="openLetter()">Open Letter 💌</button>
+
+<button class="secondary" onclick="burst()">Celebrate 🎉</button>
+
+</section>
+
+<!-- STORY -->
+<section id="story">
+
+<div class="story">
+
+Every moment you showed up,
+even when no one noticed,
+built everything I am today.
+
+<div class="timeline">
+
+<div class="item">Strength without words</div>
+<div class="item">Lessons without lectures</div>
+<div class="item">Support without conditions</div>
+<div class="item">Time that mattered most</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- LETTER -->
+<section id="letter">
+
+<div class="letter" id="letterBox">
+
+<h2>💌 Dear Dad</h2>
+
+<p style="margin-top:15px;opacity:.8;line-height:1.6;">
+You never needed to say much for me to understand everything.
+What you did meant more than anything you could’ve said.
+</p>
+
+</div>
+
+</section>
+
+<footer>Made with love 💙</footer>
+
+<script>
+
+/* letter */
+function openLetter(){
+document.getElementById("letterBox").classList.add("open");
+window.location.hash="#letter";
+burst();
+}
+
+/* confetti */
+function burst(){
+for(let i=0;i<60;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"%";
+c.style.background=`hsl(${Math.random()*360},100%,60%)`;
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+}
+
+/* subtle scroll parallax */
+document.addEventListener("scroll",()=>{
+document.querySelector(".bg").style.transform=
+`translateY(${window.scrollY*0.2}px)`;
+});
+
+</script>
+
+</body>
+</html>
